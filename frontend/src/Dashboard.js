@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import Box from "@material-ui/core/Box";
@@ -12,18 +11,18 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
+import CheckoutComponent from "./checkout/CheckoutComponent";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import {mainListItems} from "./listItems";
 import InputBase from '@material-ui/core/InputBase';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 import {
     Avatar,
@@ -36,12 +35,12 @@ import {
     MenuItem,
     Select, Tab, Tabs
 } from "@material-ui/core";
-import farm1 from './farm1.jpg'
-import avatar1 from './avatar1.jpeg'
+
 import {STYLES} from "./STYLES";
 import MainPageContent from "./MainPageContent";
 import SpecificEntityPageContent from "./SpecificEntityPageContent";
 import EntityProductModal from "./EntityProductModal";
+import FarmaciaComponent from "./FarmaciaComponent";
 
 function Copyright() {
     return (
@@ -171,12 +170,22 @@ export default function Dashboard() {
                 <div className={classes.appBarSpacer}/>
                 <Container className={classes.container}>
 
+
                     {/* <MainPageContent /> */}
 
                     {/* <SpecificEntityPageContent />  */}
 
-                    <EntityProductModal post={entityProductInfo}/>
+                    {/* <EntityProductModal post={entityProductInfo}/> */}
 
+                    <Switch>
+                        <Route exact path="/" component={ MainPageContent }/>
+
+                        <Route exact path="/pharmacy/" component={ CheckoutComponent }/>
+
+                        <Route path="/pharmacy/:pharmacyId" component={ FarmaciaComponent }/>
+
+
+                    </Switch>
 
                     <Box pt={4}>
                         <Copyright/>
