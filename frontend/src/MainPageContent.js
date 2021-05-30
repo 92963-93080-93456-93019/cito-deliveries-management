@@ -92,25 +92,25 @@ export default function MainPageContent() {
 
             <Grid container item xs={12} spacing={3}>
                 <Grid item xs={4}>
-                    <Link to={`/products/1`}><FarmaciaComponent></FarmaciaComponent></Link>
+                    <Link to={`/pharmacy/1`}><FarmaciaComponent /></Link>
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent></FarmaciaComponent>
+                    <FarmaciaComponent />
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent></FarmaciaComponent>
+                    <FarmaciaComponent />
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent></FarmaciaComponent>
+                    <FarmaciaComponent />
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent></FarmaciaComponent>
+                    <FarmaciaComponent />
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent></FarmaciaComponent>
+                    <FarmaciaComponent />
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent></FarmaciaComponent>
+                    <FarmaciaComponent />
                 </Grid>
             </Grid>
 

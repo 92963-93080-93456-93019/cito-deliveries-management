@@ -39,7 +39,6 @@ import {
 import {STYLES} from "./STYLES";
 import MainPageContent from "./MainPageContent";
 import SpecificEntityPageContent from "./SpecificEntityPageContent";
-import EntityProductModal from "./EntityProductModal";
 import FarmaciaComponent from "./FarmaciaComponent";
 
 function Copyright() {
@@ -175,15 +174,14 @@ export default function Dashboard() {
 
                     {/* <SpecificEntityPageContent />  */}
 
-                    {/* <EntityProductModal post={entityProductInfo}/> */}
+                     
 
                     <Switch>
                         <Route exact path="/" component={ MainPageContent }/>
 
                         <Route exact path="/pharmacy/" component={ CheckoutComponent }/>
 
-                        <Route path="/pharmacy/:pharmacyId" component={ FarmaciaComponent }/>
-
+                        <Route path="/pharmacy/:pharmacyId" component={ SpecificEntityPageContent }/>
 
                     </Switch>
 
