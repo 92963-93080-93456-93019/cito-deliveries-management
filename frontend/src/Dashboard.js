@@ -38,8 +38,9 @@ import {
 
 import {STYLES} from "./STYLES";
 import MainPageContent from "./MainPageContent";
+import SpecificEntityPageContent from "./SpecificEntityPageContent";
+import EntityProductModal from "./EntityProductModal";
 import FarmaciaComponent from "./FarmaciaComponent";
-
 
 function Copyright() {
     return (
@@ -67,6 +68,13 @@ export default function Dashboard() {
         setOpen(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+    const entityProductInfo = {
+        title: 'Ben-U-Ron 500mg 20 Comprimidos',
+        description: 'Loren ipsum loren ipsum loren ipsum loren ipsum loren.',
+        price: 6.60,
+        image: 'https://s1.kuantokusta.pt/img_upload/produtos_saudebeleza/191713_3_ben-u-ron-500mg-20-comprimidos.jpg'
+      };
 
     return (
         <div className={classes.root}>
@@ -162,12 +170,20 @@ export default function Dashboard() {
                 <div className={classes.appBarSpacer}/>
                 <Container className={classes.container}>
 
+
+                    {/* <MainPageContent /> */}
+
+                    {/* <SpecificEntityPageContent />  */}
+
+                    {/* <EntityProductModal post={entityProductInfo}/> */}
+
                     <Switch>
                         <Route exact path="/" component={ MainPageContent }/>
 
                         <Route exact path="/pharmacy/" component={ CheckoutComponent }/>
 
                         <Route path="/pharmacy/:pharmacyId" component={ FarmaciaComponent }/>
+
 
                     </Switch>
 
