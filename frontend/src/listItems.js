@@ -2,39 +2,39 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
 
+import PaymentIcon from '@material-ui/icons/Payment';
+import HelpIcon from '@material-ui/icons/Help';
+import BarChartIcon from '@material-ui/icons/BarChart';
+
+import ViewListIcon from '@material-ui/icons/ViewList';
+import StarIcon from '@material-ui/icons/Star';
 export const mainListItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
-        <DashboardIcon />
+        <ViewListIcon />
       </ListItemIcon>
       <ListItemText primary="Pedidos" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <StarIcon />
       </ListItemIcon>
       <ListItemText primary="Favoritos" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <PeopleIcon />
+        <PaymentIcon />
       </ListItemIcon>
       <ListItemText primary="Pagamento" />
     </ListItem>
-    <ListItem button>
+    <ListItem button to="/asdasd">
       <ListItemIcon>
-        <BarChartIcon />
+        <HelpIcon />
       </ListItemIcon>
       <ListItemText primary="Ajuda" />
     </ListItem>
   </div>
+
 );

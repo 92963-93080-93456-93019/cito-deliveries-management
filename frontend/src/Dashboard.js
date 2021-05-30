@@ -22,10 +22,24 @@ import {mainListItems} from "./listItems";
 import InputBase from '@material-ui/core/InputBase';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import {Button, CardMedia, FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
+
+
+import {
+    Avatar,
+    Button,
+    CardMedia,
+    FormControl,
+    InputLabel, ListItem,
+    ListItemAvatar,
+    ListItemText,
+    MenuItem,
+    Select, Tab, Tabs
+} from "@material-ui/core";
 import farm1 from './farm1.jpg'
+import avatar1 from './avatar1.jpeg'
+import {STYLES} from "./STYLES";
+import MainPageContent from "./MainPageContent";
 
 function Copyright() {
     return (
@@ -41,136 +55,7 @@ function Copyright() {
 }
 
 
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: "flex",
-    },
-    toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        padding: "0 8px",
-        ...theme.mixins.toolbar,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: 36,
-    },
-    menuButtonHidden: {
-        display: "none",
-    },
-    title: {
-        flexGrow: 1,
-    },
-    drawerPaper: {
-        position: "relative",
-        whiteSpace: "nowrap",
-        width: drawerWidth,
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerPaperClose: {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
-            width: theme.spacing(9),
-        },
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        height: "100vh",
-        overflow: "auto",
-    },
-    container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-    },
-    paper: {
-        padding: theme.spacing(2),
-        display: "flex",
-        overflow: "auto",
-        flexDirection: "column",
-    },
-    fixedHeight: {
-        height: 240,
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-    selectors: {
-        width: 500,
-    }
-
-}));
-
-function ImgMediaCard() {
-    const classes = useStyles();
-
-    return (
-        <Card className={classes.root}>
-            <CardActionArea>
-                <CardMedia
-                    component="img"
-                    alt="Contemplative Reptile"
-                    height="150"
-                    width="150"
-                    image={farm1}
-                    title="Contemplative Reptile"
-                />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        Farmácia
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Taxa: 2,40€ 15-20 mins
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        Espera: 15-20 mins
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button size="small" color="primary">
-                        Share
-                    </Button>
-                    <Button size="small" color="primary">
-                        Learn More
-                    </Button>
-                </CardActions>
-            </CardActionArea>
-        </Card>
-    );
-}
-
+const useStyles = STYLES;
 
 export default function Dashboard() {
     const classes = useStyles();
@@ -182,11 +67,6 @@ export default function Dashboard() {
         setOpen(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
 
     return (
         <div className={classes.root}>
@@ -219,10 +99,11 @@ export default function Dashboard() {
                     </Typography>
 
                     <InputBase
-                        placeholder="Search…"
+                        color="primary"
+                        placeholder="Procurar..."
                         classes={{
                             root: classes.inputRoot,
-                            input: classes.inputInput,
+                            input: classes.inputInput
                         }}
                         inputProps={{'aria-label': 'search'}
                         }
@@ -240,89 +121,54 @@ export default function Dashboard() {
                 classes={{
                     paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
                 }}
-                open={open}
-            >
+                open={open}>
                 <div className={classes.toolbarIcon}>
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon/>
                     </IconButton>
                 </div>
                 <Divider/>
+
+                <div>
+
+                    <List className={classes.root}>
+                        <ListItem>
+                            <ListItemAvatar alignItems="flex-start">
+                                <Avatar className={classes.large} alt="Remy Sharp"
+                                        src="https://material-ui.com/static/images/avatar/1.jpg"/>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary="Alfredo"
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography component="span" variant="body2" className={classes.inline}
+                                                    color="textPrimary">
+                                        </Typography>
+                                        {"alfredo@mail.com"}
+                                    </React.Fragment>}
+                            />
+                        </ListItem>
+                    </List>
+                </div>
+
+                <Divider/>
                 {<List>{mainListItems}</List>}
                 <Divider/>
+
+
             </Drawer>
+
             <main className={classes.content}>
                 <div className={classes.appBarSpacer}/>
                 <Container className={classes.container}>
 
+                    <MainPageContent>
 
-                    <Grid container item sm={4} spacing={1}>
-                        <Grid item xs={4}>
-                            <FormControl variant="filled" className={classes.formControl}>
-                                <InputLabel id="demo-simple-select-filled-label" >Ordenar</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-filled-label"
-                                    id="demo-simple-select-filled"
-                                    value={age}
-                                    onChange={handleChange}>
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item sm={4}>
-                            <FormControl  className={classes.selectors} variant="filled" className={classes.formControl}>
-                                <InputLabel  id="demo-simple-select-filled-label">Taxa de Entrega</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-filled-label"
-                                    id="demo-simple-select-filled"
-                                    value={age}
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    </Grid>
+                    </MainPageContent>
 
-                    <Grid container item xs={12} spacing={3}>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                    </Grid>
 
-                    <Grid container item xs={12} spacing={3}>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <ImgMediaCard></ImgMediaCard>
-                        </Grid>
-                    </Grid>
+
+
                     <Box pt={4}>
                         <Copyright/>
                     </Box>
