@@ -8,15 +8,22 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name = "product_table")
 public class Product {
 	
-	public Product(String name, String category, String description, Double price, String image) {
+	public Product() {
+		
+	}
+	
+	public Product(String name, String category, String description, Long appId, Double price, String image) {
 		super();
 		this.name = name;
 		this.category = category;
 		this.description = description;
+		this.setAppId(appId);
 		this.price = price;
 		this.image = image;
 	}
@@ -26,6 +33,7 @@ public class Product {
 	@Column(name="id")
 	private Long id;
 	private String name;
+	private Long appId;
 	private String category;
 	private String description;
 	private Double price;
@@ -81,9 +89,17 @@ public class Product {
 		this.image = image;
 	}
 
+	public Long getAppId() {
+		return appId;
+	}
+
+	public void setAppId(Long appId) {
+		this.appId = appId;
+	}
+
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", description=" + description
-				+ ", price=" + price + ", image=" + image + "]";
+		return "Product [id=" + id + ", name=" + name + ", appId=" + appId + ", category=" + category + ", description="
+				+ description + ", price=" + price + ", image=" + image + "]";
 	}
 }
