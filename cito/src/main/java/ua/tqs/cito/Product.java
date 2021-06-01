@@ -9,38 +9,29 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "product")
+@Table(name = "product_table")
 public class Product {
 	
-	public Product(Long id, String name, String category, String description, Double price) {
+	public Product(String name, String category, String description, Double price, String image) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.category = category;
 		this.description = description;
 		this.price = price;
+		this.image = image;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
 	private Long id;
-	
-	@Column(name="name")
 	private String name;
-	
-	@Column(name="category")
 	private String category;
-	
-	@Column(name="description")
 	private String description;
-	
-	@Column(name="price")
 	private Double price;
 	
 	@Lob
-	@Column(name="image")
-	private Byte[] Image;
+	private String image;
 
 	public Long getId() {
 		return id;
@@ -82,11 +73,17 @@ public class Product {
 		this.price = price;
 	}
 
-	public Byte[] getImage() {
-		return Image;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImage(Byte[] image) {
-		Image = image;
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", category=" + category + ", description=" + description
+				+ ", price=" + price + ", image=" + image + "]";
 	}
 }
