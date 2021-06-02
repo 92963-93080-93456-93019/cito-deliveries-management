@@ -8,39 +8,38 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
-@Table(name = "product")
+@Table(name = "product_table")
 public class Product {
 	
-	public Product(Long id, String name, String category, String description, Double price) {
+	public Product() {
+		
+	}
+	
+	public Product(String name, String category, String description, Long appId, Double price, String image) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.category = category;
 		this.description = description;
+		this.setAppId(appId);
 		this.price = price;
+		this.image = image;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
 	private Long id;
-	
-	@Column(name="name")
 	private String name;
-	
-	@Column(name="category")
+	private Long appId;
 	private String category;
-	
-	@Column(name="description")
 	private String description;
-	
-	@Column(name="price")
 	private Double price;
 	
 	@Lob
-	@Column(name="image")
-	private Byte[] Image;
+	private String image;
 
 	public Long getId() {
 		return id;
@@ -82,11 +81,25 @@ public class Product {
 		this.price = price;
 	}
 
-	public Byte[] getImage() {
-		return Image;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImage(Byte[] image) {
-		Image = image;
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public Long getAppId() {
+		return appId;
+	}
+
+	public void setAppId(Long appId) {
+		this.appId = appId;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", appId=" + appId + ", category=" + category + ", description="
+				+ description + ", price=" + price + ", image=" + image + "]";
 	}
 }
