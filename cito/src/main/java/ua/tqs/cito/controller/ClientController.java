@@ -8,8 +8,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ua.tqs.cito.Product;
+import ua.tqs.cito.model.Product;
 import ua.tqs.cito.service.ProductService;
+import ua.tqs.cito.service.SearchService;
 
 
 @Controller
@@ -18,6 +19,9 @@ public class ClientController {
 	
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private SearchService searchService;
 	
 	private static final String PRODUCT_NOT_SAVED = "{\"code\" : 400, \"message\" : \"Bad parameters for product.\"}";
 	
@@ -37,9 +41,9 @@ public class ClientController {
 
 	// Client search products endpoint
 	@GetMapping(value="search", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> getProductsForSearchParams(String query, String orderBy, String filter, String appid) {
-
-		return null;
+	public ResponseEntity<Object> getProductsForSearchQuery(String query, Long appid) {
+		ResponseEntity<Object> response = searchService.getProductsBySearchQuery(query, appid);
+		return response;
 	}
 	
 }
