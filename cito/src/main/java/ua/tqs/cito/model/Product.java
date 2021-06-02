@@ -1,29 +1,26 @@
-package ua.tqs.cito;
+package ua.tqs.cito.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.sun.istack.NotNull;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "product_table")
+
 public class Product {
 	
 	public Product() {
 		
 	}
 	
-	public Product(String name, String category, String description, Long appId, Double price, String image) {
+	public Product(String name, String category, String description, App app, Double price, String image) {
 		super();
 		this.name = name;
 		this.category = category;
 		this.description = description;
-		this.setAppId(appId);
+		this.setApp(app);
 		this.price = price;
 		this.image = image;
 	}
@@ -33,7 +30,9 @@ public class Product {
 	@Column(name="id")
 	private Long id;
 	private String name;
-	private Long appId;
+	@ManyToOne
+	@JoinColumn(name = "appId") // An App has many products (foreign key)
+	private App app;
 	private String category;
 	private String description;
 	private Double price;
@@ -89,17 +88,30 @@ public class Product {
 		this.image = image;
 	}
 
-	public Long getAppId() {
-		return appId;
+	public App getApp() {
+		return app;
 	}
 
-	public void setAppId(Long appId) {
-		this.appId = appId;
+	public void setApp(App app) {
+		this.app = app;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", appId=" + appId + ", category=" + category + ", description="
+		return "Product [id=" + id + ", name=" + name + ", app=" + app + ", category=" + category + ", description="
 				+ description + ", price=" + price + ", image=" + image + "]";
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Product product = (Product) o;
+		return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(app, product.app) && Objects.equals(category, product.category) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(image, product.image);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, app, category, description, price, image);
 	}
 }

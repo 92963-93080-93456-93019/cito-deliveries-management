@@ -7,6 +7,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import ua.tqs.cito.controller.ClientController;
+import ua.tqs.cito.model.App;
+import ua.tqs.cito.model.Product;
+import ua.tqs.cito.service.ProductService;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
@@ -14,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 
-@WebMvcTest(ProductsController.class)
+@WebMvcTest(ClientController.class)
 public class ProductControllerTests {
 	
 		@Autowired
@@ -25,7 +29,8 @@ public class ProductControllerTests {
 	    
 	    @Test
 	    public void whenPostinProductReturnIt( ) throws Exception {
-	    	Product p = new Product("Benuron","Farmácia Geral","Great for small pains!",(long) 1,13.00,"somebase64string");
+	    	App app1 = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
+	    	Product p = new Product("Benuron","Farmácia Geral","Great for small pains!",app1,13.00,"somebase64string");
 	    	
 	    	RestAssuredMockMvc.mockMvc(mvc);
 
@@ -49,8 +54,9 @@ public class ProductControllerTests {
 	    @Test
 	    public void whenGetAllProductsFromAppIdReturnThem( ) throws Exception {
 	    	ArrayList<Product> ar = new ArrayList<>();
-	    	Product p1 = new Product("Benuron","Farmácia Geral","Great for small pains!",(long) 1,13.00,"somebase64string");
-	    	Product p2 = new Product("Brufen","Farmácia Geral","Great for small pains!",(long) 1,5.00,"somebase64string");
+			App app1 = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
+	    	Product p1 = new Product("Benuron","Farmácia Geral","Great for small pains!",app1,13.00,"somebase64string");
+	    	Product p2 = new Product("Brufen","Farmácia Geral","Great for small pains!",app1,5.00,"somebase64string");
 	    	ar.add(p1);
 	    	ar.add(p2);
 	    	
