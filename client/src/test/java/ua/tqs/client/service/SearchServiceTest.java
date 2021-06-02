@@ -24,6 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class SearchServiceTest {
 
     @Value("${specific_store_token}")
+
     private Long apiKey;
 
     @InjectMocks
@@ -43,10 +44,12 @@ public class SearchServiceTest {
 
         // Mock Engine API output
         URI url = new UriTemplate(CITO_SEARCH_API_URL).expand(searchQuery,apiKey);
+
         ResponseEntity<String> response = new ResponseEntity<String>("{ \"searchResultProducts\": [ { \"id\" : 5465446542, \"name\": \"Benurom 250mg comprimidos\", \"category\" :\"Medicamentos para Febre\", \"price\": 1.70, \"photo\": \"someBase64ImageForId1\", \"description\": \"1 a 2 comprimidos de 4 em 4 horas.\" }, { \"id\" : 6854516841, \"name\": \"Benurom 500mg comprimidos\", \"category\" :\"Medicamentos para Febre\", \"price\": 2.70, \"photo\": \"someBase64ImageForId2\", \"description\": \"1 a 2 comprimidos de 8 em 8 horas.\" } ] }", HttpStatus.OK);
         Mockito.when(restTemplate.getForEntity(url, String.class)).thenReturn(response);
 
         // Call Engine Service
+
         JsonNode searchResultBody = searchService.getProductsBySearchQuery(searchQuery);
 
         // Check output
