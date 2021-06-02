@@ -34,11 +34,11 @@ public class ClientRestController {
 
     @Operation(summary = "Show current day air quality based on given address.")
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getAirQualityOfTodayFromCoordinates(String query, String orderBy, String filter) throws JsonProcessingException {
+    public ResponseEntity<Object> getProductsForSearchParams(String query) throws JsonProcessingException {
 
         //LOGGER.log(Level.INFO,"New GET /today request.");
 
-        JsonNode searchResult = searchService.getProductsBySearchParams(query,orderBy,filter);
+        JsonNode searchResult = searchService.getProductsBySearchQuery(query);
 
         if (searchResult == null){
             return new ResponseEntity<>(BROKEN_JSON, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,9 +1,11 @@
-package ua.tqs.cito;
+package ua.tqs.cito.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.tqs.cito.Product;
+import ua.tqs.cito.ProductRepository;
 
 
 @Service

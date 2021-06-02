@@ -24,7 +24,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class SearchServiceTest {
 
     @Value("${specific_store_token}")
-    private String apiKey;
+    private Long apiKey;
 
     @InjectMocks
     private SearchService searchService;
@@ -32,24 +32,22 @@ public class SearchServiceTest {
     @Mock(lenient = true)
     private RestTemplate restTemplate;
 
-    private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8080/clientApi/search?query={searchQuery}&orderBy={searchOrderBy}&filter={searchFilter}&appid={apiKey}";
+    private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8080/clientApi/search?query={searchQuery}&appid={apiKey}";
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void whenSearchParams_thenReturnProductsAsJsonObjects() throws JsonProcessingException {
+    void whenSearchQuery_thenReturnProductsAsJsonObjects() throws JsonProcessingException {
 
         // User Input
         String searchQuery = "benurom";
-        String searchOrderBy = "smallestPrice";
-        String searchFilter = "";
 
         // Mock Engine API output
-        URI url = new UriTemplate(CITO_SEARCH_API_URL).expand(searchQuery,searchOrderBy,searchFilter,apiKey);
+        URI url = new UriTemplate(CITO_SEARCH_API_URL).expand(searchQuery,apiKey);
         ResponseEntity<String> response = new ResponseEntity<String>("{ \"searchResultProducts\": [ { \"id\" : 5465446542, \"name\": \"Benurom 250mg comprimidos\", \"category\" :\"Medicamentos para Febre\", \"price\": 1.70, \"photo\": \"someBase64ImageForId1\", \"description\": \"1 a 2 comprimidos de 4 em 4 horas.\" }, { \"id\" : 6854516841, \"name\": \"Benurom 500mg comprimidos\", \"category\" :\"Medicamentos para Febre\", \"price\": 2.70, \"photo\": \"someBase64ImageForId2\", \"description\": \"1 a 2 comprimidos de 8 em 8 horas.\" } ] }", HttpStatus.OK);
         Mockito.when(restTemplate.getForEntity(url, String.class)).thenReturn(response);
 
         // Call Engine Service
-        JsonNode searchResultBody = searchService.getProductsBySearchParams(searchQuery, searchOrderBy, searchFilter);
+        JsonNode searchResultBody = searchService.getProductsBySearchQuery(searchQuery);
 
         // Check output
         Mockito.verify(restTemplate, VerificationModeFactory.times(1)).getForEntity(url, String.class);

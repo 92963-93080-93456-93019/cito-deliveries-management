@@ -1,4 +1,4 @@
-package ua.tqs.cito;
+package ua.tqs.cito.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

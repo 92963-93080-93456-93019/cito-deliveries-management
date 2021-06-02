@@ -16,17 +16,17 @@ import java.net.URI;
 public class SearchService {
 
     @Value("${specific_store_token}")
-    private String apiKey;
+    private Long apiKey;
 
     @Autowired
     private RestTemplate restTemplate;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8080/clientApi/search?query={searchQuery}&orderBy={searchOrderBy}&filter={searchFilter}&appid={apiKey}";
+    private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8080/clientApi/search?query={searchQuery}&appid={apiKey}";
 
-    public JsonNode getProductsBySearchParams(String searchQuery, String searchOrderBy, String searchFilter) {
-        URI url = new UriTemplate(CITO_SEARCH_API_URL).expand(searchQuery,searchOrderBy,searchFilter,apiKey);
+    public JsonNode getProductsBySearchQuery(String searchQuery) {
+        URI url = new UriTemplate(CITO_SEARCH_API_URL).expand(searchQuery,apiKey);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         try {
             return objectMapper.readTree(response.getBody());
