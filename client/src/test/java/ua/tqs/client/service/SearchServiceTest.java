@@ -32,7 +32,7 @@ public class SearchServiceTest {
     @Mock(lenient = true)
     private RestTemplate restTemplate;
 
-    private static final String CITO_SEARCH_API_URL = "http://citoengineurl/clientApi/search?query={searchQuery}&orderBy={searchOrderBy}&filter={searchFilter}&appid={apiKey}";
+    private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8080/clientApi/search?query={searchQuery}&orderBy={searchOrderBy}&filter={searchFilter}&appid={apiKey}";
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -49,7 +49,7 @@ public class SearchServiceTest {
         Mockito.when(restTemplate.getForEntity(url, String.class)).thenReturn(response);
 
         // Call Engine Service
-        JsonNode searchResultBody = searchService.getProductsBySearchParams(searchQuery, searchOrderBy, searchFilter, apiKey);
+        JsonNode searchResultBody = searchService.getProductsBySearchParams(searchQuery, searchOrderBy, searchFilter);
 
         // Check output
         Mockito.verify(restTemplate, VerificationModeFactory.times(1)).getForEntity(url, String.class);
