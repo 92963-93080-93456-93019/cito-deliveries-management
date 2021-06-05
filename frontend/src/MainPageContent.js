@@ -6,8 +6,6 @@ import React from "react";
 import {STYLES} from "./STYLES";
 
 import FarmaciaComponent from "./FarmaciaComponent";
-import { Link } from "react-router-dom";
-
 
 
 
@@ -92,25 +90,25 @@ export default function MainPageContent() {
 
             <Grid container item xs={12} spacing={3}>
                 <Grid item xs={4}>
-                    <Link to={`/pharmacy/1`}><FarmaciaComponent /></Link>
+                    <FarmaciaComponent></FarmaciaComponent>
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent />
+                    <FarmaciaComponent></FarmaciaComponent>
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent />
+                    <FarmaciaComponent></FarmaciaComponent>
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent />
+                    <FarmaciaComponent></FarmaciaComponent>
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent />
+                    <FarmaciaComponent></FarmaciaComponent>
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent />
+                    <FarmaciaComponent></FarmaciaComponent>
                 </Grid>
                 <Grid item xs={4}>
-                    <FarmaciaComponent />
+                    <FarmaciaComponent></FarmaciaComponent>
                 </Grid>
             </Grid>
 
