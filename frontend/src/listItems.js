@@ -15,25 +15,25 @@ export const mainListItems = (
       <ListItemIcon>
         <ViewListIcon />
       </ListItemIcon>
-      <ListItemText primary="Pedidos" />
+      <ListItemText primary="Orders" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <StarIcon />
       </ListItemIcon>
-      <ListItemText primary="Favoritos" />
+      <ListItemText primary="Favourites" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <PaymentIcon />
       </ListItemIcon>
-      <ListItemText primary="Pagamento" />
+      <ListItemText primary="Payment" />
     </ListItem>
-    <ListItem button to="/asdasd">
+    <ListItem button>
       <ListItemIcon>
         <HelpIcon />
       </ListItemIcon>
-      <ListItemText primary="Ajuda" />
+      <ListItemText primary="Help" />
     </ListItem>
   </div>
 
