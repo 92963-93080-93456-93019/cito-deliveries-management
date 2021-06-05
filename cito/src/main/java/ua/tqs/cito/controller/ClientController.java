@@ -16,7 +16,7 @@ import ua.tqs.cito.service.SearchService;
 @Controller
 @RequestMapping("/clientApi")
 public class ClientController {
-	
+	/*
 	@Autowired
 	private ProductService productService;
 
@@ -44,6 +44,6 @@ public class ClientController {
 	public ResponseEntity<Object> getProductsForSearchQuery(String query, Long appid) {
 		ResponseEntity<Object> response = searchService.getProductsBySearchQuery(query, appid);
 		return response;
-	}
+	}*/
 	
 }

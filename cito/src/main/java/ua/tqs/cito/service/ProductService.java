@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.tqs.cito.model.App;
 import ua.tqs.cito.model.Product;
 import ua.tqs.cito.repository.ProductRepository;
 
@@ -21,8 +22,8 @@ public class ProductService {
 		return productRepository.save(p);
 	}
 	
-	public List<Product> getAllForApp(Long l){
-		return productRepository.findByAppId(l);
+	public List<Product> getAllForApp(App l){
+		return productRepository.findByApp(l);
 	}
 }
 

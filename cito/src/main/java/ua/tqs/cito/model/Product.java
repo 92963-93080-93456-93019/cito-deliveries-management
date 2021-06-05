@@ -25,6 +25,17 @@ public class Product {
 		this.image = image;
 	}
 
+	public Product(Long id,String name, String category, String description, App app, Double price, String image) {
+		super();
+		this.name = name;
+		this.category = category;
+		this.description = description;
+		this.setApp(app);
+		this.price = price;
+		this.image = image;
+		this.id=id;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="id")
