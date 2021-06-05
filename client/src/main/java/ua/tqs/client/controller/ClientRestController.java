@@ -23,7 +23,7 @@ import java.net.URI;
 
 @Tag(name = "Client Deliveries", description = "the Client Deliveries API")
 @RestController
-@RequestMapping("/clientApi")
+@RequestMapping("/client/clientApi")
 public class ClientRestController {
 
     @Autowired

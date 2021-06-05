@@ -9,13 +9,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.tqs.cito.model.Product;
+import ua.tqs.cito.service.OrderService;
 import ua.tqs.cito.service.ProductService;
 import ua.tqs.cito.service.SearchService;
 
 
 @Controller
-@RequestMapping("/clientApi")
+@RequestMapping("/cito/clientApi")
 public class ClientController {
+
+    @Autowired
+    private OrderService orderService;
+
+
 	/*
 	@Autowired
 	private ProductService productService;
@@ -45,5 +51,9 @@ public class ClientController {
 		ResponseEntity<Object> response = searchService.getProductsBySearchQuery(query, appid);
 		return response;
 	}*/
-	
+
+
+
+
+
 }

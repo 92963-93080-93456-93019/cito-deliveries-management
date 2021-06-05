@@ -24,7 +24,7 @@ public class SearchService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8080/clientApi/search?query={searchQuery}&appid={apiKey}";
+    private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8080/cito/clientApi/search?query={searchQuery}&appid={apiKey}";
 
     public JsonNode getProductsBySearchQuery(String searchQuery) {
         URI url = new UriTemplate(CITO_SEARCH_API_URL).expand(searchQuery,apiKey);

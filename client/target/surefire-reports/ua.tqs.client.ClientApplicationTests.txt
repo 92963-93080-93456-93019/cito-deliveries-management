@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: ua.tqs.client.ClientApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.987 s <<< FAILURE! - in ua.tqs.client.ClientApplicationTests
+contextLoads  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.IllegalStateException: Failed to load ApplicationContext
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'clientRestController': Unsatisfied dependency expressed through field 'searchService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'searchService': Unsatisfied dependency expressed through field 'apiKey'; nested exception is org.springframework.beans.TypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "some_random_token"
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'searchService': Unsatisfied dependency expressed through field 'apiKey'; nested exception is org.springframework.beans.TypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "some_random_token"
+Caused by: org.springframework.beans.TypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "some_random_token"
+Caused by: java.lang.NumberFormatException: For input string: "some_random_token"
+

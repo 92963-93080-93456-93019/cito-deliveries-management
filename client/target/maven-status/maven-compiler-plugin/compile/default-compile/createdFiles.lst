@@ -1,0 +1,5 @@
+ua/tqs/client/configuration/BeanConfiguration.class
+ua/tqs/client/ClientApplication.class
+ua/tqs/client/service/OrderPlacementService.class
+ua/tqs/client/service/SearchService.class
+ua/tqs/client/controller/ClientRestController.class
