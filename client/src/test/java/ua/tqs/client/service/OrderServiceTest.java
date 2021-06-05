@@ -45,14 +45,12 @@ public class OrderServiceTest {
         Mockito.when(restTemplate.getForEntity(url, String.class)).thenReturn(response);
 
         // Call Engine Service
-        JsonNode searchResultBody = orderService.getOrderStatusByOrderId(orderId);
+        JsonNode searchResultBody = (JsonNode) orderService.getOrderStatusByOrderId(orderId).getBody();
 
         // Check output
         Mockito.verify(restTemplate, VerificationModeFactory.times(1)).getForEntity(url, String.class);
         assertThat(searchResultBody.path("orderId").asLong()).isEqualTo(orderId);
         assertThat(searchResultBody.path("orderStatus").asText()).isEqualTo(orderStatus);
     }
-
-    // testar estado que não exista ??
 
 }

@@ -99,7 +99,6 @@ public class RiderControllerTest {
 
         when(service.getOrder(any())).thenReturn(o1);
 
-
         RestAssuredMockMvc.get("http://localhost:8000/order/" + o1.getOrderId()).then().assertThat().statusCode(200);
     }
 

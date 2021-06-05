@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.hibernate.criterion.Order;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
+import ua.tqs.client.service.OrderService;
 import ua.tqs.client.service.SearchService;
 
 import java.net.URI;
@@ -29,6 +31,9 @@ public class ClientRestController {
     @Autowired
     private SearchService searchService;
 
+    @Autowired
+    private OrderService orderService;
+
     private static final String BROKEN_JSON = "{\"code\" : 500, \"message\" : \"Internal Server Error. Broken JSON.\"}";
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -40,10 +45,18 @@ public class ClientRestController {
 
         JsonNode searchResult = searchService.getProductsBySearchQuery(query);
 
-        if (searchResult == null){
+        if (searchResult == null) {
             return new ResponseEntity<>(BROKEN_JSON, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>(searchResult, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/order/status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getStatusForOrder(Long orderId) {
+        return orderService.getOrderStatusByOrderId(orderId);
+
+    }
+
+
 }

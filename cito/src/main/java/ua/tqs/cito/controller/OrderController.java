@@ -56,11 +56,7 @@ public class OrderController {
 
     @GetMapping(value="status", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getOrderStatus(Long orderId) {
-        ResponseEntity<Object> response = orderService.getStatusByOrderId(orderId);
-        if (response == null) {
-            return new ResponseEntity<>(ORDER_NOT_FOUND,HttpStatus.NOT_FOUND);
-        }
-        return response;
+        return orderService.getStatusByOrderId(orderId);
     }
 
 }
