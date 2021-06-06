@@ -12,11 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
+import ua.tqs.client.service.OrderService;
 import ua.tqs.client.service.SearchService;
 
 import java.net.URI;
@@ -29,21 +28,19 @@ public class ClientRestController {
     @Autowired
     private SearchService searchService;
 
+    @Autowired
+    private OrderService orderService;
+
     private static final String BROKEN_JSON = "{\"code\" : 500, \"message\" : \"Internal Server Error. Broken JSON.\"}";
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Operation(summary = "Show current day air quality based on given address.")
-    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getProductsForSearchParams(String query) throws JsonProcessingException {
+    @GetMapping(value = "{clientId}/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getProductsByQuery(@PathVariable Long clientId, String query) {
+        return searchService.getProductsByQuery(clientId, query);
+    }
 
-        //LOGGER.log(Level.INFO,"New GET /today request.");
-
-        JsonNode searchResult = searchService.getProductsBySearchQuery(query);
-
-        if (searchResult == null){
-            return new ResponseEntity<>(BROKEN_JSON, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        return new ResponseEntity<>(searchResult, HttpStatus.OK);
+    @PostMapping(value = "{clientId}/order/register", produces = MediaType.APPLICATION_JSON_VALUE   )
+    public ResponseEntity<Object> registerOrder(@PathVariable Long clientId, @RequestBody JsonNode payload) {
+        return orderService.registerOrder(clientId, payload);
     }
 }

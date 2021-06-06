@@ -48,9 +48,6 @@ public class ClientController {
 	// Client gets his orders
 	@GetMapping("{clientId}/orders")
 	public ResponseEntity<Object> getOrders(@PathVariable Long clientId, Long appid){
-		System.out.println(clientId);
 		return orderService.getOrders(clientId, appid);
 	}
-
-	
 }
