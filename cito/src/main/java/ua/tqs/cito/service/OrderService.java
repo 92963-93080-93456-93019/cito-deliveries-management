@@ -1,5 +1,6 @@
 package ua.tqs.cito.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,10 +34,11 @@ public class OrderService {
     private RiderRepository riderRepository;
 
     public boolean save(Order o) {
-        if (o.getAddress()==null || o.getOrderId()==null || o.getApp()==null || o.getPrice()==null || o.getEndConsumer()==null || o.getProductsList().size()==0 || o.getRider()==null) {
+        if (o.getAddress()==null || o.getApp()==null || o.getPrice()==null || o.getEndConsumer()==null || o.getProductListItems().size()==0) {
+            System.out.println(o);
             return false;
         }
-        orderRepository.save(o);
+        System.out.println(orderRepository.save(o));
         return true;
     }
 
@@ -69,19 +71,20 @@ public class OrderService {
             return new ResponseEntity<>(HttpResponses.INVALID_CONSUMER, HttpStatus.FORBIDDEN);
         }
 
-        Map<Product, Integer> prods = new HashMap<>();
+        List<ProductListItem> prods = new ArrayList<>();
         JsonNode payload_prods = payload.path("products");
 
         if(payload_prods.size()==0){
             return new ResponseEntity<>(HttpResponses.INSUFFICIENT_PRODUCTS, HttpStatus.FORBIDDEN);
         }
 
-        int i = 0;
+
         for(JsonNode j:payload_prods){
-            Long prodId = Long.parseLong(j.get(i).path("id").asText());
+            Long prodId = Long.parseLong(j.path("id").asText());
             Product p = checkAndGetProduct(prodId);
             if( p != null ){
-                prods.put(p,j.get(i).path("quantity").asInt());
+                ProductListItem pli = new ProductListItem(p, j.path("quantity").asInt());
+                prods.add(pli);
             System.out.println(p);}
             else{
                 return new ResponseEntity<>(HttpResponses.INVALID_PRODUCT.replace("#", prodId.toString()), HttpStatus.FORBIDDEN);}
@@ -145,7 +148,7 @@ public class OrderService {
     }
 
     // Check and return product if exists, null otherwise
-    private Product checkAndGetProduct(Long id) {
+    public Product checkAndGetProduct(Long id) {
        if(productRepository.findById(id).isEmpty())
            return null;
        return productRepository.findById(id).get();

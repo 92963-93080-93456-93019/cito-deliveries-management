@@ -22,4 +22,9 @@ public class ProductListItem {
     private Product product;
     private int quantity;
 
+    public ProductListItem(Product product, int quantity) {
+        this.product=product;
+        this.quantity=quantity;
+    }
+
 }

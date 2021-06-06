@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ua.tqs.cito.model.App;
 import ua.tqs.cito.repository.AppRepository;
 import ua.tqs.cito.model.Product;
 import ua.tqs.cito.repository.ConsumerRepository;
@@ -26,11 +27,17 @@ public class SearchService {
 
     // Client gets products when searching by name
     public ResponseEntity<Object> getProductsByQuery(Long consumerId, Long appid, String query) {
-        if (!checkAppId(appid))
+
+        App app = appRepository.findByAppid(appid);
+
+        if (app == null)
             return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.FORBIDDEN);
+
         if (!checkConsumerId(consumerId))
             return new ResponseEntity<>(HttpResponses.INVALID_CONSUMER, HttpStatus.FORBIDDEN);
-        List<Product> products = productRepository.findByNameLike("%" + query + "%");
+
+        List<Product> products = productRepository.findByNameLikeAndApp("%" + query + "%",app);
+
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 

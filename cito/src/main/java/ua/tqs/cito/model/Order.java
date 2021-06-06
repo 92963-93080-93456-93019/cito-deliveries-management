@@ -13,6 +13,7 @@ import java.util.Map;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "consumer_order")
 @Setter
 @Getter
 @ToString
@@ -21,12 +22,16 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orderId;
-    @OneToMany
-    private List<ProductListItem> productListItems;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<ProductListItem> productListItems; // An order has one productListItems
+
     private Double price;
+
     @ManyToOne
     @JoinColumn(name = "consumerId") // A Consumer has many orders (foreign key)
     private Consumer endConsumer;
+
     private OrderStatusEnum orderStatusEnum;
 
     @ManyToOne
