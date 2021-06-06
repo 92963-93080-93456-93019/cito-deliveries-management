@@ -1,6 +1,6 @@
-package ua.tqs.cito.model;
+package ua.tqs.cito.utils;
 
-public enum STATUS {
+public enum OrderStatusEnum {
     PENDING,
     GOING_TO_BUY,
     BUYING,

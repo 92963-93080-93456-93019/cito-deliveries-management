@@ -6,9 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "apps_table")
 @NoArgsConstructor
 @Setter
 @Getter
@@ -31,6 +31,8 @@ public class App {
     private String name;
     private String address;
     private String schedule;
+    @OneToMany(mappedBy = "app")
+    private List<Manager> managers;
 
     @Lob
     private String image;

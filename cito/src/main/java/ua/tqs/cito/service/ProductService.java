@@ -3,10 +3,16 @@ package ua.tqs.cito.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.tqs.cito.model.App;
+import ua.tqs.cito.model.Manager;
 import ua.tqs.cito.model.Product;
+import ua.tqs.cito.repository.AppRepository;
+import ua.tqs.cito.repository.ManagerRepository;
 import ua.tqs.cito.repository.ProductRepository;
+import ua.tqs.cito.utils.HttpResponses;
 
 
 @Service
@@ -14,16 +20,41 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private AppRepository appRepository;
+
+	@Autowired
+	private ManagerRepository managerRepository;
 	
-	public Product save(Product p) {
+	public ResponseEntity<Object> registerProduct(Long managerId, Long appid, Product p) {
+
+		var app = appRepository.findByAppid(appid);
+		if (app == null)
+			return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.NOT_FOUND);
+
+		Manager manager = managerRepository.findManagerByApp(app);
+		if (manager == null || !manager.getManagerId().equals(managerId))
+			return new ResponseEntity<>(HttpResponses.MANAGER_NOT_FOUND_FOR_APP, HttpStatus.NOT_FOUND);
+
 		if (p.getName() == null || p.getApp() == null || p.getDescription() == null || p.getImage() == null || p.getPrice() == null || p.getCategory() == null) {
-			return null;
+			return new ResponseEntity<>(HttpResponses.PRODUCT_NOT_SAVED, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return productRepository.save(p);
+		productRepository.save(p);
+		return new ResponseEntity<>(HttpResponses.PRODUCT_SAVED, HttpStatus.CREATED);
 	}
 	
-	public List<Product> getAllForApp(App l){
-		return productRepository.findByApp(l);
+	public ResponseEntity<Object> getAllProducts(Long managerId, Long appid){
+
+		var app = appRepository.findByAppid(appid);
+		if (app == null)
+			return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.NOT_FOUND);
+
+		Manager manager = managerRepository.findManagerByApp(app);
+		if (manager == null || !manager.getManagerId().equals(managerId))
+			return new ResponseEntity<>(HttpResponses.MANAGER_NOT_FOUND_FOR_APP, HttpStatus.NOT_FOUND);
+
+		return new ResponseEntity<>(productRepository.findByApp(app), HttpStatus.OK);
 	}
 }
 

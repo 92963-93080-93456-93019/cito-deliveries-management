@@ -8,6 +8,8 @@ import ua.tqs.cito.model.Manager;
 import java.util.List;
 
 @Repository
-public interface AppRepository extends JpaRepository<App,String> {
-    public App findByAppid(Long appid);
+public interface ManagerRepository extends JpaRepository<Manager, Long> {
+    public List<Manager> findAll();
+    public Manager findByManagerId(Long managerId);
+    public Manager findManagerByApp(App app);
 }
