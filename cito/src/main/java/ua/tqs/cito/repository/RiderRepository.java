@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface RiderRepository extends JpaRepository<Rider, Long> {
     public List<Rider> findAll();
-
     public Rider findByRiderId(Long id);
 }

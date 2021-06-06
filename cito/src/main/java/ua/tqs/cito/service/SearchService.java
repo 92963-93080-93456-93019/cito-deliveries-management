@@ -1,13 +1,15 @@
 package ua.tqs.cito.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ua.tqs.cito.model.App;
 import ua.tqs.cito.repository.AppRepository;
 import ua.tqs.cito.model.Product;
+import ua.tqs.cito.repository.ConsumerRepository;
 import ua.tqs.cito.repository.ProductRepository;
+import ua.tqs.cito.utils.HttpResponses;
 
 import java.util.List;
 
@@ -20,21 +22,35 @@ public class SearchService {
     @Autowired
     private AppRepository appRepository;
 
-    private static final String INVALID_CLIENT_API = "{\"code\" : 403, \"message\" : \"Invalid client API.\"}";
-    private ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ConsumerRepository consumerRepository;
 
     // Client gets products when searching by name
-    public ResponseEntity<Object> getProductsBySearchQuery(String query, Long appid) {
-        if (!checkAppId(appid))
-            return new ResponseEntity<>(INVALID_CLIENT_API, HttpStatus.FORBIDDEN);
-        List<Product> products = productRepository.findByNameLike("%" + query + "%");
+    public ResponseEntity<Object> getProductsByQuery(Long consumerId, Long appid, String query) {
+
+        App app = appRepository.findByAppid(appid);
+
+        if (app == null)
+            return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.FORBIDDEN);
+
+        if (!checkConsumerId(consumerId))
+            return new ResponseEntity<>(HttpResponses.INVALID_CONSUMER, HttpStatus.FORBIDDEN);
+
+        List<Product> products = productRepository.findByNameLikeAndApp("%" + query + "%",app);
+
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    // Check if client exists
+    // Check if app exists
     private boolean checkAppId(Long appId) {
         return appRepository.findByAppid(appId) != null;
     }
+
+    // Check if client exists
+    private boolean checkConsumerId(Long consumerId) {
+        return consumerRepository.findByConsumerId(consumerId) != null;
+    }
+
 }
 
 

@@ -10,10 +10,9 @@ import ua.tqs.cito.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
     public Optional<Product> findById(Long l);
     public List<Product> findAll();
     public List<Product> findByApp(App l);
-    public List<Product> findByNameLike(String likeName);
+    public List<Product> findByNameLikeAndApp(String likeName, App app);
 
 }

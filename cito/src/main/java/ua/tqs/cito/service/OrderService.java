@@ -1,17 +1,19 @@
 package ua.tqs.cito.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.tqs.cito.model.*;
 import ua.tqs.cito.repository.*;
-
-import javax.xml.bind.annotation.XmlType;
-
+import ua.tqs.cito.utils.HttpResponses;
+import ua.tqs.cito.utils.OrderStatusEnum;
 
 @Service
 public class OrderService {
@@ -28,92 +30,128 @@ public class OrderService {
     @Autowired
     private ConsumerRepository consumerRepository;
 
-    public Order save(Order o) {
-        if (o.getAddress()==null || o.getOrderId()==null || o.getApp()==null || o.getPrice()==null || o.getEndConsumer()==null || o.getProductsList().size()==0 || o.getRider()==null) {
-            return null;
+    @Autowired
+    private RiderRepository riderRepository;
+
+    public boolean save(Order o) {
+        if (o.getAddress()==null || o.getApp()==null || o.getPrice()==null || o.getEndConsumer()==null || o.getProductListItems().size()==0) {
+            System.out.println(o);
+            return false;
         }
-        return orderRepository.save(o);
+        System.out.println(orderRepository.save(o));
+        return true;
     }
 
-    public Order getOrder(Long id){
-        return orderRepository.findByOrderId(id);
+    public ResponseEntity<Object> getOrders(Long clientId, Long appid) {
+        if (checkAppId(appid))
+            return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.FORBIDDEN);
+
+        Consumer c = consumerRepository.findByConsumerId(clientId);
+        if (c == null) {
+            return new ResponseEntity<>(HttpResponses.INVALID_CONSUMER, HttpStatus.FORBIDDEN);
+        }
+
+        List<Order> orders = orderRepository.findOrdersByEndConsumer(c);
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    public Order parseAndSave(JsonNode payload){
-        App app1 = checkAppId(Long.parseLong(payload.path("info").path("appid").asText()));
+    public ResponseEntity<Object> registerOrder( Long clientId, Long appid, JsonNode payload ){
 
-        if(app1==null)
-            return null;
+        // OLD JSON FIELDS (REMOVE THEM FROM JSON IN FRONTEND)
 
-        Consumer c = checkConsumer(Long.parseLong(payload.path("info").path("userId").asText()));
+        //App app1 = checkAppId(Long.parseLong(payload.path("info").path("appid").asText()));
+        // Consumer c = checkConsumer(Long.parseLong(payload.path("info").path("userId").asText()));
 
-        if(c==null)
-            return null;
+        App app = appRepository.findByAppid(appid);
+        if (app == null)
+            return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.FORBIDDEN);
 
-        Map<Product, Integer> prods = new HashMap<>();
+        Consumer c = consumerRepository.findByConsumerId(clientId);
+        if (c == null) {
+            return new ResponseEntity<>(HttpResponses.INVALID_CONSUMER, HttpStatus.FORBIDDEN);
+        }
 
+        List<ProductListItem> prods = new ArrayList<>();
         JsonNode payload_prods = payload.path("products");
 
         if(payload_prods.size()==0){
-            return null;
+            return new ResponseEntity<>(HttpResponses.INSUFFICIENT_PRODUCTS, HttpStatus.FORBIDDEN);
         }
 
-        int i = 0;
+
         for(JsonNode j:payload_prods){
-            Product p = checkProduct(Long.parseLong(j.get(i).path("id").asText()));
-            if(p!=null)
-                prods.put(p,j.get(i).path("quantity").asInt());
+            Long prodId = Long.parseLong(j.path("id").asText());
+            Product p = checkAndGetProduct(prodId);
+            if( p != null ){
+                ProductListItem pli = new ProductListItem(p, j.path("quantity").asInt());
+                prods.add(pli);
+            System.out.println(p);}
+            else{
+                return new ResponseEntity<>(HttpResponses.INVALID_PRODUCT.replace("#", prodId.toString()), HttpStatus.FORBIDDEN);}
         }
 
         String address = payload.path("info").path("deliveryAddress").asText();
-
         if(address==null)
-            return null;
+            return new ResponseEntity<>(HttpResponses.INVALID_ADDRESS, HttpStatus.FORBIDDEN);
 
-        return save(new Order(prods,c,STATUS.PENDING,app1,address));
+        if (save(new Order(prods,c, OrderStatusEnum.PENDING,app,address)))
+            return new ResponseEntity<>(HttpResponses.ORDER_SAVED, HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(HttpResponses.ORDER_NOT_SAVED, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public Order update(String status, Long appid, Long orderid) {
+    public ResponseEntity<Object> updateOrder(Long riderId, Long appid, Long orderid, String status) {
+
+        if (checkAppId(appid))
+            return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.FORBIDDEN);
+
+        if (!checkRiderId(riderId))
+            return new ResponseEntity<>(HttpResponses.INVALID_RIDER, HttpStatus.FORBIDDEN);
+
         Order orderUpdate = orderRepository.getById(orderid);
 
         switch(status){
             case "GOING_TO_BUY":
-                orderUpdate.setStatus(STATUS.GOING_TO_BUY);
+                orderUpdate.setOrderStatusEnum(OrderStatusEnum.GOING_TO_BUY);
                 break;
             case "BUYING":
-                orderUpdate.setStatus(STATUS.BUYING);
+                orderUpdate.setOrderStatusEnum(OrderStatusEnum.BUYING);
                 break;
             case "DELIVERING":
-                orderUpdate.setStatus(STATUS.DELIVERING);
+                orderUpdate.setOrderStatusEnum(OrderStatusEnum.DELIVERING);
                 break;
             case "DELIVERED":
-                orderUpdate.setStatus(STATUS.DELIVERED);
+                orderUpdate.setOrderStatusEnum(OrderStatusEnum.DELIVERED);
                 break;
             default:
                 return null;
         }
 
-        return orderRepository.save(orderUpdate);
+        orderRepository.save(orderUpdate);
+        return new ResponseEntity<>(HttpResponses.ORDER_UPDATED.replace("#", "state"), HttpStatus.OK);
 
     }
 
     // Check if app exists
-    private App checkAppId(Long appId) {
-        return appRepository.findByAppid(appId);
+    private boolean checkAppId(Long appId) {
+        return appRepository.findByAppid(appId) == null;
     }
 
-    // Check if product exists
-    private Product checkProduct(Long id) {
+    // Check if rider exists
+    private boolean checkRiderId(Long riderId) {
+        return riderRepository.findByRiderId(riderId) != null;
+    }
+
+    // Check if client exists
+    private boolean checkConsumerId(Long consumerId) {
+        return consumerRepository.findByConsumerId(consumerId) != null;
+    }
+
+    // Check and return product if exists, null otherwise
+    public Product checkAndGetProduct(Long id) {
        if(productRepository.findById(id).isEmpty())
            return null;
        return productRepository.findById(id).get();
-    }
-
-    // Check if consumer exists
-    private Consumer checkConsumer(Long id) {
-        if(consumerRepository.findByClientId(id)==null)
-            return null;
-        return consumerRepository.findByClientId(id);
     }
 
 }
