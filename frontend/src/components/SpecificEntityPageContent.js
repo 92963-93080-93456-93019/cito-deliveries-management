@@ -3,7 +3,7 @@ import {CardMedia, FormControl, InputLabel, MenuItem, Select, Tab, Tabs} from "@
 import Divider from "@material-ui/core/Divider";
 import Paper from "@material-ui/core/Paper";
 import React from "react";
-import {STYLES} from "./STYLES";
+import {STYLES} from "../STYLES";
 
 import EntityProduct from "./EntityProduct";
 import EntityHeader from "./EntityHeader";
