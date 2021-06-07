@@ -1,7 +1,8 @@
 name: Master Branch
 
 on:
-  merge:
+  pull_request:
+    types: [closed, review_requested]
     branches:
       - "master"
       - "develop"
