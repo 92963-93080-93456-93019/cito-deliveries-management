@@ -1,4 +1,4 @@
-package ua.tqs.cito;
+package ua.tqs.cito.integration;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 
 @WebMvcTest(ClientController.class)
-public class ProductControllerTests {
+public class ManagerControllerITests {
 	
 		@Autowired
 	    private MockMvc mvc;
@@ -31,7 +31,7 @@ public class ProductControllerTests {
 
 		private static final String PRODUCT_SAVED = "{\"code\" : 201, \"message\" : \"Product saved.\"}";
 	    
-	    /*@Test
+	    @Test
 	    public void whenPostInProduct_thenReturnCreatedResponse( ) throws Exception {
 	    	App app1 = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
 	    	Product p = new Product("Benuron","Farmácia Geral","Great for small pains!",app1,13.00,"somebase64string");
@@ -65,30 +65,5 @@ public class ProductControllerTests {
 					.then()
 						.statusCode(400);
 	    }
-	    
-
-	    @Test
-	    public void whenGetAllProductsFromAppIdReturnThem( ) throws Exception {
-	    	ArrayList<Product> ar = new ArrayList<>();
-			App app1 = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
-	    	Product p1 = new Product("Benuron","Farmácia Geral","Great for small pains!",app1,13.00,"somebase64string");
-	    	Product p2 = new Product("Brufen","Farmácia Geral","Great for small pains!",app1,5.00,"somebase64string");
-	    	ar.add(p1);
-	    	ar.add(p2);
-	    	
-	    	RestAssuredMockMvc.mockMvc(mvc);
-
-	        when( productService.getAllProducts(any(), any())).thenReturn(ar);
-
-	        
-	        RestAssuredMockMvc
-					.given()
-						.get("http://localhost:8000/product/1")
-					.then()
-						.statusCode(200)
-						.body("[0].name",equalTo("Benuron"))
-						.body("[1].name",equalTo("Brufen"));
-
-	    }*/
 
 }
