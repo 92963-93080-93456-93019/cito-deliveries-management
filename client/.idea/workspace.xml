@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2fe3ae9b-10df-4cd3-bd17-5bb486c6a4c6" name="Default Changelist" comment="" />
+    <list default="true" id="2fe3ae9b-10df-4cd3-bd17-5bb486c6a4c6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../cito/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../cito/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ua/tqs/client/controller/ClientRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ua/tqs/client/controller/ClientRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/SpecificEntityPageContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/SpecificEntityPageContent.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,7 +55,18 @@
       <recent name="ua.tqs.client.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OrderServiceTest.whenGetOrderStatus_thenReturnStatusAsJsonObject">
+  <component name="RunManager" selected="Spring Boot.ClientApplication">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OrderServiceTest.whenGetOrderStatus_thenReturnStatusAsJsonObject" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="client" />
       <extension name="coverage">
@@ -107,6 +124,7 @@
       <workItem from="1622830506489" duration="291000" />
       <workItem from="1622907918495" duration="6904000" />
       <workItem from="1622989789122" duration="339000" />
+      <workItem from="1623021480410" duration="1466000" />
     </task>
     <servers />
   </component>

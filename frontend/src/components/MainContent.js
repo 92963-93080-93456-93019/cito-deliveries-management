@@ -19,6 +19,7 @@ export default function MainContent() {
 
                 <Switch>
                     <Route exact path="/" component={SpecificEntityPageContent}/>
+                    <Route exact path="/searchResult" component={SpecificEntityPageContent}/>
                     <Route exact path="/checkout/" component={CheckoutComponent}/>
                     <Route path="/pharmacy/:pharmacyId" component={SpecificEntityPageContent}/>
                 </Switch>

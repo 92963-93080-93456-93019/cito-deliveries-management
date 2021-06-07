@@ -22,6 +22,7 @@ import java.net.URI;
 
 @Tag(name = "Client Deliveries", description = "the Client Deliveries API")
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/clientApi")
 public class ClientRestController {
 
@@ -33,6 +34,7 @@ public class ClientRestController {
 
     private static final String BROKEN_JSON = "{\"code\" : 500, \"message\" : \"Internal Server Error. Broken JSON.\"}";
     private ObjectMapper objectMapper = new ObjectMapper();
+
 
     @GetMapping(value = "{clientId}/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getProductsByQuery(@PathVariable Long clientId, String query) {
