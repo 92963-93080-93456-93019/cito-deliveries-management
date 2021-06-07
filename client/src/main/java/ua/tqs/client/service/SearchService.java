@@ -22,9 +22,15 @@ public class SearchService {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private static final String CITO_SEARCH_API_URL = "http://127.0.0.1:8081/clientApi/{clientId}/search?query={searchQuery}&appid={apiKey}";
+    private static final String CITO_PRODUCTS_API_URL = "http://127.0.0.1:8081/clientApi/{clientId}/products?appid={apiKey}";
 
     public ResponseEntity<Object> getProductsByQuery(Long clientId, String searchQuery) {
         URI url = new UriTemplate(CITO_SEARCH_API_URL).expand(clientId,searchQuery,1);
+        return restTemplate.getForEntity(url, Object.class);
+    }
+
+    public ResponseEntity<Object> getAllProductsForClient(Long clientId) {
+        URI url = new UriTemplate(CITO_PRODUCTS_API_URL).expand(clientId, 1);
         return restTemplate.getForEntity(url, Object.class);
     }
 }
