@@ -3,13 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-<<<<<<< HEAD
-
-ReactDOM.render(
-    <React.StrictMode>
-        <App/>
-    </React.StrictMode>,
-=======
 import {
     BrowserRouter as Router,
 } from "react-router-dom";
@@ -26,7 +19,6 @@ ReactDOM.render(
 
     </React.StrictMode>
     ,
->>>>>>> develop
     document.getElementById('root')
 );
 
