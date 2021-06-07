@@ -24,6 +24,7 @@ jobs:
       - name: Maven Verify
         working-directory: cito
         run: mvn -B clean verify
+        
   test_client:
     name: Test Client
     runs-on: ubuntu-18.04
@@ -60,7 +61,7 @@ jobs:
   artifact:
     name: Publish - GitHub Packages
     runs-on: ubuntu-18.04
-    needs: [test, sonar]
+    needs: [test_client,test_cito, sonar]
 
     steps:
       - uses: actions/checkout@v1
