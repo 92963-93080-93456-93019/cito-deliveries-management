@@ -1,9 +1,10 @@
 name: Master Branch
 
 on:
-  push:
+  merge:
     branches:
       - "master"
+      - "develop"
 
 jobs:
   test:
