@@ -43,4 +43,9 @@ public class ClientRestController {
     public ResponseEntity<Object> registerOrder(@PathVariable Long clientId, @RequestBody JsonNode payload) {
         return orderService.registerOrder(clientId, payload);
     }
+
+    @GetMapping(value = "{clientId}/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> getAllProductsForClient(@PathVariable Long clientId) {
+        return searchService.getAllProductsForClient(clientId);
+    }
 }

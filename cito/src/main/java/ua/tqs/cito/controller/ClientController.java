@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.tqs.cito.model.Order;
 import ua.tqs.cito.service.OrderService;
+import ua.tqs.cito.service.ProductService;
 import ua.tqs.cito.service.SearchService;
 
 
@@ -20,6 +21,9 @@ public class ClientController {
 
 	@Autowired
 	private OrderService orderService;
+
+	@Autowired
+	private ProductService productService;
 
 	/*
 	@Autowired
@@ -49,5 +53,11 @@ public class ClientController {
 	@GetMapping("{clientId}/orders")
 	public ResponseEntity<Object> getOrders(@PathVariable Long clientId, Long appid){
 		return orderService.getOrders(clientId, appid);
+	}
+
+	// Client gets all products of app
+	@GetMapping("{clientId}/products")
+	public ResponseEntity<Object> getAllProducts(@PathVariable Long clientId, Long appid) {
+		return productService.getAllProductsForClient(clientId, appid);
 	}
 }
