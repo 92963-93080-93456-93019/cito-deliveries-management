@@ -6,13 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import {
     BrowserRouter as Router,
 } from "react-router-dom";
+
 ReactDOM.render(
     <React.StrictMode>
+        <head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        </head>
         <Router>
-        <App/>
+            <App/>
         </Router>
 
-    </React.StrictMode>,
+    </React.StrictMode>
+    ,
     document.getElementById('root')
 );
 

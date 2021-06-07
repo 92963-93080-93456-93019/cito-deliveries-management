@@ -143,7 +143,7 @@ export default function EntityProduct(props) {
                 <div className={classesProduct.details}>
                     <CardContent className={classesProduct.content}>
                         <Typography className={classesProduct.title} component="h5" variant="h5">
-                            {post.title}
+                            {post.name}
                         </Typography>
                         <Typography className={classesProduct.description} variant="subtitle1" color="textSecondary">
                             {post.description}
@@ -157,8 +157,8 @@ export default function EntityProduct(props) {
                 </div>
                 <CardMedia
                     className={classesProduct.cover}
-                    image={post.image}
-                    title={post.title}
+                    image="https://s1.kuantokusta.pt/img_upload/produtos_saudebeleza/191713_3_ben-u-ron-500mg-20-comprimidos.jpg"
+                    title={post.name}
                 />
             </Card>
 
