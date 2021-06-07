@@ -25,17 +25,11 @@ public class ClientController {
 	@Autowired
 	private ProductService productService;
 
-	/*
-	@Autowired
-	private ProductService productService;
-
-	private static final String PRODUCT_NOT_SAVED = "{\"code\" : 400, \"message\" : \"Bad parameters for product.\"}";
-
-	@GetMapping("product/{id}")
-	public ResponseEntity<List<Product>> getCarById(@PathVariable Long id){
-		return new ResponseEntity<List<Product>>(productService.getAllForApp(id),HttpStatus.OK);
+	// Client gets all products of app
+	@GetMapping("{clientId}/products")
+	public ResponseEntity<Object> getAllProducts(@PathVariable Long clientId, Long appid) {
+		return productService.getAllProductsForClient(clientId, appid);
 	}
-    */
 
 	// Client searches for products
 	@GetMapping(value="{clientId}/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,11 +47,5 @@ public class ClientController {
 	@GetMapping("{clientId}/orders")
 	public ResponseEntity<Object> getOrders(@PathVariable Long clientId, Long appid){
 		return orderService.getOrders(clientId, appid);
-	}
-
-	// Client gets all products of app
-	@GetMapping("{clientId}/products")
-	public ResponseEntity<Object> getAllProducts(@PathVariable Long clientId, Long appid) {
-		return productService.getAllProductsForClient(clientId, appid);
 	}
 }

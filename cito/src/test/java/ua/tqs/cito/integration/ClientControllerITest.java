@@ -1,4 +1,4 @@
-package ua.tqs.cito;
+package ua.tqs.cito.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import ua.tqs.cito.CitoApplication;
 import ua.tqs.cito.controller.ClientController;
 import ua.tqs.cito.model.*;
 import ua.tqs.cito.repository.AppRepository;
@@ -37,7 +38,7 @@ import io.restassured.parsing.Parser;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = CitoApplication.class)
 @AutoConfigureMockMvc
-public class RiderControllerTest {
+public class ClientControllerITest {
 
     @Autowired
     private MockMvc mvc;
@@ -55,6 +56,7 @@ public class RiderControllerTest {
     private ProductRepository productRepository;
 
     ObjectMapper mapper = new ObjectMapper();
+
     @Test
     public void whenRegisterOrder_thenReturnCreated( ) throws Exception {
         //Rider r1 = new Rider(1L,"João","Laranjo","919234527",0);
@@ -91,6 +93,30 @@ public class RiderControllerTest {
     }
 
     /*@Test
+    public void whenGetAllProductsFromAppIdReturnThem( ) throws Exception {
+        ArrayList<Product> ar = new ArrayList<>();
+        App app1 = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
+        Product p1 = new Product("Benuron","Farmácia Geral","Great for small pains!",app1,13.00,"somebase64string");
+        Product p2 = new Product("Brufen","Farmácia Geral","Great for small pains!",app1,5.00,"somebase64string");
+        ar.add(p1);
+        ar.add(p2);
+
+        RestAssuredMockMvc.mockMvc(mvc);
+
+        when( productService.getAllProducts(any(), any())).thenReturn(ar);
+
+
+        RestAssuredMockMvc
+                .given()
+                .get("http://localhost:8000/product/1")
+                .then()
+                .statusCode(200)
+                .body("[0].name",equalTo("Benuron"))
+                .body("[1].name",equalTo("Brufen"));
+
+    }*/
+
+    /*@Test
     public void whenGetOrders_thenReturnOrders( ) throws Exception {
         Rider r1 = new Rider(1L,"João","Laranjo","919234527",0);
         App app1 = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase64Image");
@@ -119,7 +145,7 @@ public class RiderControllerTest {
         when(orderService.getOrders(c1.getConsumerId(), app1.getAppid()) ).thenReturn(new ResponseEntity<>(l, HttpStatus.NOT_FOUND));
         Mockito.verify(orderService, VerificationModeFactory.times(1)).getOrders(c1.getConsumerId(), app1.getAppid());
         RestAssuredMockMvc.get("http://127.0.0.1:8080/clientApi/1/orders?appid=1").then().assertThat().statusCode(404);
-    }
+    }*/
 
     /*@Test
     public void whenGetingOrder_thenReturnUpdated( ) throws Exception {
@@ -141,7 +167,7 @@ public class RiderControllerTest {
         when(orderService.updateOrder(any(), any(), any(), any())).thenReturn(new ResponseEntity<>(mapper.readTree(HttpResponses.ORDER_UPDATED), HttpStatus.OK));
 
         RestAssuredMockMvc.get("http://localhost:8000/order/update").then().assertThat().statusCode(200);
-    }*/
+    }/*
 
 
 }
