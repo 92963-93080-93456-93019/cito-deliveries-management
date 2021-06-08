@@ -1,4 +1,4 @@
-package ua.tqs.client.service;
+package ua.tqs.client.service.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplate;
+import ua.tqs.client.service.SearchService;
 
 import java.net.URI;
 

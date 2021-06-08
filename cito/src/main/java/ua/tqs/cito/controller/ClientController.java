@@ -49,4 +49,5 @@ public class ClientController {
 	public ResponseEntity<Object> getAllProducts(@PathVariable Long clientId, Long appid) {
 		return productService.getAllProductsForClient(clientId, appid);
 	}
+
 }

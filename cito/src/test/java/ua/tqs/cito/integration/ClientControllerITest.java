@@ -1,4 +1,4 @@
-package ua.tqs.cito;
+package ua.tqs.cito.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import ua.tqs.cito.CitoApplication;
 import ua.tqs.cito.controller.ClientController;
 import ua.tqs.cito.model.*;
 import ua.tqs.cito.repository.AppRepository;
@@ -40,7 +41,7 @@ import java.util.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = CitoApplication.class)
 @AutoConfigureMockMvc
-public class ClientControllerTest {
+public class ClientControllerITest {
     @LocalServerPort
     int port;
 
@@ -48,23 +49,6 @@ public class ClientControllerTest {
     void setup() {
         RestAssured.port = port;
     }
-
-    @Autowired
-    private MockMvc mvc;
-
-    @MockBean
-    private OrderService orderService;
-
-    @MockBean
-    private AppRepository appRepository;
-
-    @MockBean
-    private ConsumerRepository consumerRepository;
-
-    @MockBean
-    private ProductRepository productRepository;
-
-    ObjectMapper mapper = new ObjectMapper();
 
     @Test
     public void whenRegisterOrder_thenReturnCreated() throws Exception {

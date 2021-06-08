@@ -81,17 +81,17 @@ export default function Dashboard() {
                             <ListItemAvatar alignItems="flex-start">
                                 <Avatar
                                     className={classes.large}
-                                    alt="Remy Sharp"
-                                    src="https://material-ui.com/static/images/avatar/1.jpg"
+                                    alt="João Laranjo"
+                                    src="https://i.imgur.com/jfMmkxG.png"
                                 />
                             </ListItemAvatar>
                             <ListItemText
-                                primary="Alfredo"
+                                primary="João"
                                 secondary={
                                     <React.Fragment>
                                         <Typography component="span" variant="body2" className={classes.inline}
                                                     color="textPrimary"></Typography>
-                                        {"alfredo@mail.com"}
+                                        {"laranjo@mail.com"}
                                     </React.Fragment>
                                 }
                             />

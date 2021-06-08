@@ -1,5 +1,5 @@
 
-package ua.tqs.cito;
+package ua.tqs.cito.service;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -10,7 +10,9 @@ import static org.mockito.Mockito.verify;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,6 +54,8 @@ public class OrderServiceTest {
 
     @InjectMocks
     private OrderService orderService;
+
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     public void whenGetOrdersReturnList() {
@@ -125,7 +129,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void whenRegisterOrders_ReturnCREATED() {
+    public void whenRegisterOrders_ReturnCREATED() throws JsonProcessingException {
         Long clientId = 1L;
         Long appid = 1L;
 
@@ -135,13 +139,15 @@ public class OrderServiceTest {
         given( appRepository.findByAppid(appid)).willReturn(app);
         given( consumerRepository.findByConsumerId(clientId)).willReturn(c1);
 
+        String request = "{\"products\":[{\"id\":3,\"quantity\":2},{\"id\":4,\"quantity\":3}],\"info\":{\"appid\":1,\"userId\":1,\"deliveryAddress\":\"Rua do corvo\",\"deliverInPerson\":true}}";
+        JsonNode payload = objectMapper.readTree(request);
 
+        ResponseEntity<Object> r = orderService.registerOrder(clientId,appid,payload);
+        System.out.println(r.toString());
 
-        //ResponseEntity<Object> r = orderService.registerOrder(clientId,appid,payload);
+        assertThat(r.getStatusCode(), is(201));
 
-        //assertThat(r.getStatusCode(), is(samePropertyValuesAs(HttpStatus.CREATED)));
-
-        //assertThat(r.getBody(), is(HttpResponses.ORDER_SAVED));
+        assertThat(r.getBody(), is(HttpResponses.ORDER_SAVED));
     }
 
     @Test
@@ -166,8 +172,6 @@ public class OrderServiceTest {
         given( appRepository.findByAppid(appid)).willReturn(app);
         given( riderRepository.findByRiderId(r1.getRiderId())).willReturn(r1);
         given( orderRepository.getById(orderId)).willReturn(o1);
-
-
 
         ResponseEntity<Object> r = orderService.updateOrder(RiderId,appid,orderId,"GOING_TO_BUY");
 
