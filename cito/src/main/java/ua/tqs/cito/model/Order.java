@@ -57,7 +57,7 @@ public class Order {
         this.address=address;
     }
 
-    /*public Order(Long orderId, List<ProductListItem> productListItems, Consumer endConsumer, OrderStatusEnum orderStatusEnum, App app, String address){
+    public Order(Long orderId, List<ProductListItem> productListItems, Consumer endConsumer, OrderStatusEnum orderStatusEnum, App app, String address){
         this.productListItems=productListItems;
         this.endConsumer=endConsumer;
         this.orderStatusEnum = orderStatusEnum.PENDING;
@@ -69,6 +69,6 @@ public class Order {
         }
         this.address=address;
         this.orderId=orderId;
-    }*/
+    }
 
 }
