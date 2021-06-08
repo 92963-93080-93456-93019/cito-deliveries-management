@@ -13,4 +13,5 @@ public class HttpResponses {
     public static final String PRODUCT_SAVED = "{\"code\" : 201, \"message\" : \"Product saved.\"}";
     public static final String PRODUCT_NOT_SAVED = "{\"code\" : 500, \"message\" : \"Bad parameters for product.\"}";
     public static final String MANAGER_NOT_FOUND_FOR_APP = "{\"code\" : 404, \"message\" : \"Manager not found for app.\"}";
+    public static final String INVALID_STATUS = "{\"code\" : 404, \"message\" : \"Status invalid.\"}";
 }

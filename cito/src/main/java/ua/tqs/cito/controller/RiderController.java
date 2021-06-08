@@ -1,6 +1,7 @@
 package ua.tqs.cito.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class RiderController {
     private OrderService orderService;
 
     // Rider updates order state
-    @GetMapping("{riderId}/order/update")
+    @GetMapping(value="{riderId}/order/update",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateOrder(@PathVariable Long riderId, Long appid, Long orderId, String status){
         return orderService.updateOrder(riderId, appid, orderId, status);
     }
