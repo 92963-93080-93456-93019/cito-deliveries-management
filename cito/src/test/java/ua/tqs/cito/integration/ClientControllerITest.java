@@ -74,7 +74,6 @@ public class ClientControllerITest {
                 .assertThat()
                 .and().statusCode(200)
                 .and().body("size()",greaterThan(0));
-
     }
 
 }
