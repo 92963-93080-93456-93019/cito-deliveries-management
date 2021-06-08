@@ -37,11 +37,11 @@ public class ProductService {
 		var app = appRepository.findByAppid(appid);
 		if (app == null)
 			return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.NOT_FOUND);
-
+		
 		Manager manager = managerRepository.findManagerByApp(app);
 		if (manager == null || !manager.getManagerId().equals(managerId))
 			return new ResponseEntity<>(HttpResponses.MANAGER_NOT_FOUND_FOR_APP, HttpStatus.NOT_FOUND);
-
+		
 		if (p.getName() == null || p.getApp() == null || p.getDescription() == null || p.getImage() == null || p.getPrice() == null || p.getCategory() == null) {
 			return new ResponseEntity<>(HttpResponses.PRODUCT_NOT_SAVED, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -167,7 +167,7 @@ public class ClientControllerITest {
         when(orderService.updateOrder(any(), any(), any(), any())).thenReturn(new ResponseEntity<>(mapper.readTree(HttpResponses.ORDER_UPDATED), HttpStatus.OK));
 
         RestAssuredMockMvc.get("http://localhost:8000/order/update").then().assertThat().statusCode(200);
-    }/*
+    }*/
 
 
 }
