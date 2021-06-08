@@ -56,7 +56,6 @@ public class OrderService {
     }
 
     public ResponseEntity<Object> registerOrder( Long clientId, Long appid, JsonNode payload ){
-
         // OLD JSON FIELDS (REMOVE THEM FROM JSON IN FRONTEND)
 
         //App app1 = checkAppId(Long.parseLong(payload.path("info").path("appid").asText()));
@@ -110,25 +109,31 @@ public class OrderService {
 
         Order orderUpdate = orderRepository.getById(orderid);
 
+        String state = "";
+
         switch(status){
             case "GOING_TO_BUY":
                 orderUpdate.setOrderStatusEnum(OrderStatusEnum.GOING_TO_BUY);
+                state="GOING_TO_BUY";
                 break;
             case "BUYING":
                 orderUpdate.setOrderStatusEnum(OrderStatusEnum.BUYING);
+                state="BUYING";
                 break;
             case "DELIVERING":
                 orderUpdate.setOrderStatusEnum(OrderStatusEnum.DELIVERING);
+                state="DELIVERING";
                 break;
             case "DELIVERED":
                 orderUpdate.setOrderStatusEnum(OrderStatusEnum.DELIVERED);
+                state="DELIVERED";
                 break;
             default:
-                return null;
+                return new ResponseEntity<>(HttpResponses.INVALID_STATUS, HttpStatus.FORBIDDEN);
         }
 
         orderRepository.save(orderUpdate);
-        return new ResponseEntity<>(HttpResponses.ORDER_UPDATED.replace("#", "state"), HttpStatus.OK);
+        return new ResponseEntity<>(HttpResponses.ORDER_UPDATED.replace("#", state), HttpStatus.OK);
 
     }
 

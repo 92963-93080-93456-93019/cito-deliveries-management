@@ -25,12 +25,6 @@ public class ClientController {
 	@Autowired
 	private ProductService productService;
 
-	// Client gets all products of app
-	@GetMapping("{clientId}/products")
-	public ResponseEntity<Object> getAllProducts(@PathVariable Long clientId, Long appid) {
-		return productService.getAllProductsForClient(clientId, appid);
-	}
-
 	// Client searches for products
 	@GetMapping(value="{clientId}/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> getProductsByQuery(@PathVariable Long clientId, Long appid, String query) {
@@ -38,14 +32,22 @@ public class ClientController {
     }
 
     // Client registers an order
-	@PostMapping("{clientId}/order/register")
+	@PostMapping(value="{clientId}/order/register",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> registerOrder(@PathVariable Long clientId, Long appid, @RequestBody JsonNode payload) {
+		System.out.println("Cheguei ao controller");
 		return orderService.registerOrder(clientId, appid, payload);
 	}
 
 	// Client gets his orders
-	@GetMapping("{clientId}/orders")
+	@GetMapping(value="{clientId}/orders",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> getOrders(@PathVariable Long clientId, Long appid){
 		return orderService.getOrders(clientId, appid);
 	}
+
+	// Client gets all products of app
+	@GetMapping(value="{clientId}/products",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> getAllProducts(@PathVariable Long clientId, Long appid) {
+		return productService.getAllProductsForClient(clientId, appid);
+	}
+
 }
