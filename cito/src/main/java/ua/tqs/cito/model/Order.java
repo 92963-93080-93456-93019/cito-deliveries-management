@@ -57,17 +57,68 @@ public class Order {
         this.address=address;
     }
 
-    /*public Order(Long orderId, List<ProductListItem> productListItems, Consumer endConsumer, OrderStatusEnum orderStatusEnum, App app, String address){
-        this.productListItems=productListItems;
-        this.endConsumer=endConsumer;
-        this.orderStatusEnum = orderStatusEnum.PENDING;
-        this.rider=null;
-        this.app=app;
-        this.price=0.0;
-        for (ProductListItem p : productListItems) {
-            this.price = this.price + p.getProduct().getPrice()*p.getQuantity();
-        }
-        this.address=address;
-        this.orderId=orderId;
-    }*/
+	public Long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public List<ProductListItem> getProductListItems() {
+		return productListItems;
+	}
+
+	public void setProductListItems(List<ProductListItem> productListItems) {
+		this.productListItems = productListItems;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Consumer getEndConsumer() {
+		return endConsumer;
+	}
+
+	public void setEndConsumer(Consumer endConsumer) {
+		this.endConsumer = endConsumer;
+	}
+
+	public OrderStatusEnum getOrderStatusEnum() {
+		return orderStatusEnum;
+	}
+
+	public void setOrderStatusEnum(OrderStatusEnum orderStatusEnum) {
+		this.orderStatusEnum = orderStatusEnum;
+	}
+
+	public Rider getRider() {
+		return rider;
+	}
+
+	public void setRider(Rider rider) {
+		this.rider = rider;
+	}
+
+	public App getApp() {
+		return app;
+	}
+
+	public void setApp(App app) {
+		this.app = app;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 }
