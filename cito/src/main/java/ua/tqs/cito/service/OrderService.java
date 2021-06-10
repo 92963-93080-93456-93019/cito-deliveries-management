@@ -33,15 +33,6 @@ public class OrderService {
     @Autowired
     private RiderRepository riderRepository;
 
-    public boolean save(Order o) {
-        if (o.getAddress()==null || o.getApp()==null || o.getPrice()==null || o.getEndConsumer()==null || o.getProductListItems().size()==0) {
-            System.out.println(o);
-            return false;
-        }
-        System.out.println(orderRepository.save(o));
-        return true;
-    }
-
     public ResponseEntity<Object> getOrders(Long clientId, Long appid) {
         if (checkAppId(appid))
             return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.FORBIDDEN);
@@ -84,19 +75,19 @@ public class OrderService {
             if( p != null ){
                 ProductListItem pli = new ProductListItem(p, j.path("quantity").asInt());
                 prods.add(pli);
-            System.out.println(p);}
+            }
             else{
                 return new ResponseEntity<>(HttpResponses.INVALID_PRODUCT.replace("#", prodId.toString()), HttpStatus.FORBIDDEN);}
         }
 
         String address = payload.path("info").path("deliveryAddress").asText();
-        if(address==null)
+        if(address.equals(""))
             return new ResponseEntity<>(HttpResponses.INVALID_ADDRESS, HttpStatus.FORBIDDEN);
 
-        if (save(new Order(prods,c, OrderStatusEnum.PENDING,app,address)))
-            return new ResponseEntity<>(HttpResponses.ORDER_SAVED, HttpStatus.CREATED);
-        else
-            return new ResponseEntity<>(HttpResponses.ORDER_NOT_SAVED, HttpStatus.INTERNAL_SERVER_ERROR);
+        Order o1 = new Order(prods,c, OrderStatusEnum.PENDING,app,address);
+        System.out.println(o1.toString());
+        orderRepository.save(o1);
+        return new ResponseEntity<>(HttpResponses.ORDER_SAVED, HttpStatus.CREATED);
     }
 
     public ResponseEntity<Object> updateOrder(Long riderId, Long appid, Long orderid, String status) {
