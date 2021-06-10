@@ -76,4 +76,26 @@ public class ClientControllerITest {
                 .and().body("size()",greaterThan(0));
     }
 
+    @Test
+    public void whenGetProducts_thenReturnProductss() throws Exception {
+
+        RestAssured
+                .get("http://localhost:8081/clientApi/1/products?clientId=1&appid=1")
+                .then()
+                .assertThat()
+                .and().statusCode(200)
+                .and().body("size()",greaterThan(0));
+    }
+
+    @Test
+    public void whenGetProductsByQuery_ReturnProducts() throws Exception {
+
+        RestAssured
+                .get("http://localhost:8081/clientApi/1/search?clientId=1&appid=1&query=benuron")
+                .then()
+                .assertThat()
+                .and().statusCode(200)
+                .and().body("size()",greaterThan(0));
+    }
+
 }
