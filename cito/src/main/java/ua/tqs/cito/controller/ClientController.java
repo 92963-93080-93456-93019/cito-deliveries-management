@@ -50,4 +50,9 @@ public class ClientController {
 		return productService.getAllProductsForClient(clientId, appid);
 	}
 
+	// rate rider
+	@PostMapping(value="/rate",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> rateRider(@PathVariable Long riderId,Integer rating){
+		return orderService.rate(riderId,rating);
+	}
 }

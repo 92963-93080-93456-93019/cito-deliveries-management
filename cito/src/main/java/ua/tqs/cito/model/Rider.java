@@ -49,5 +49,14 @@ public class Rider {
         this.vehicleName=vehicleName;
     }
 
+    public void addRep(Integer i){
+        this.reps.add(i);
+        int total = 0;
+        for(Integer rep:this.reps){
+            total+=rep;
+        }
+        this.reputation=total/reps.size();
+    }
+
 
 }
