@@ -25,22 +25,28 @@ public class Rider {
     private int reputation;
     @ElementCollection
     private List<Integer> reps;
+    private String vehicleName;
+    private String vehicleLicense;
 
-    public Rider(String fname, String lname, String fnumber, int reputation) {
+    public Rider(String fname, String lname, String fnumber,String vehicleName,String vehicleLicense) {
         this.fname=fname;
         this.lname=lname;
         this.fnumber=fnumber;
-        this.reputation=reputation;
+        this.reputation=0;
+        this.vehicleName=vehicleName;
+        this.vehicleLicense=vehicleLicense;
         this.reps = new ArrayList<>();
     }
 
-    public Rider(Long riderId,String fname, String lname, String fnumber, int reputation) {
+    public Rider(Long riderId,String fname, String lname, String fnumber,String vehicleName,String vehicleLicense) {
         this.fname=fname;
         this.lname=lname;
         this.fnumber=fnumber;
-        this.reputation=reputation;
+        this.reputation=0;
         this.reps = new ArrayList<>();
         this.riderId=riderId;
+        this.vehicleLicense=vehicleLicense;
+        this.vehicleName=vehicleName;
     }
 
 

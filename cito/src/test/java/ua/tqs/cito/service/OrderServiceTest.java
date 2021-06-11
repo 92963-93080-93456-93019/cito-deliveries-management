@@ -293,7 +293,7 @@ public class OrderServiceTest {
         Long orderId = 1L;
 
         App app = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
-        Rider r1 = new Rider(1L,"Dinis","Cruz","912223334",0);
+        Rider r1 = new Rider(1L,"Dinis","Cruz","912223334","Mercedes","00-00-00");
         Consumer c1 = new Consumer(1L,"Duarte","Mortagua","919191919","Fatima",app);
 
         ProductListItem pli1 = new ProductListItem(new Product(3L, "Benuron","Farmacia Geral","Great for Small pains!",app,15.0,"someBase64Image"),2);
@@ -356,7 +356,7 @@ public class OrderServiceTest {
         Long orderId = 1L;
 
         App app = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
-        Rider r1 = new Rider(1L,"Dinis","Cruz","912223334",0);
+        Rider r1 = new Rider(1L,"Dinis","Cruz","912223334","Mercedes","00-00-00");
         Consumer c1 = new Consumer(1L,"Duarte","Mortagua","919191919","Fatima",app);
 
         ProductListItem pli1 = new ProductListItem(new Product(3L, "Benuron","Farmacia Geral","Great for Small pains!",app,15.0,"someBase64Image"),2);
