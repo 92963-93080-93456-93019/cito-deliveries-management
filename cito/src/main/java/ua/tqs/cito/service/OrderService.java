@@ -128,6 +128,17 @@ public class OrderService {
 
     }
 
+    public ResponseEntity<Object> rate(Long riderId, Integer rating) {
+        if (!checkRiderId(riderId))
+            return new ResponseEntity<>(HttpResponses.INVALID_RIDER, HttpStatus.FORBIDDEN);
+
+        Rider r1 = riderRepository.getById(riderId);
+
+        r1.addRep(rating);
+
+        return new ResponseEntity<>(HttpResponses.RIDER_RATED, HttpStatus.OK);
+    }
+
     // Check if app exists
     private boolean checkAppId(Long appId) {
         return appRepository.findByAppid(appId) == null;
@@ -149,5 +160,6 @@ public class OrderService {
            return null;
        return productRepository.findById(id).get();
     }
+
 
 }
