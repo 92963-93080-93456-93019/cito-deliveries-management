@@ -79,12 +79,12 @@ jobs:
     name: Deploy to heroku cito-engine
     runs-on: ubuntu-18.04
     needs: sonar_client
+    env:
+      working-directory: cito
     steps:
       - name: Check out repository
-        working-directory: cito
         uses: actions/checkout@v2
       - name: Deploy to Heroku
-        working-directory: cito
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
@@ -95,12 +95,12 @@ jobs:
     name: Deploy to heroku cito-client
     runs-on: ubuntu-18.04
     needs: sonar_client
+    env:
+      working-directory: client
     steps:
       - name: Check out repository
-        working-directory: client
         uses: actions/checkout@v2
       - name: Deploy to Heroku
-        working-directory: client
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
@@ -111,12 +111,12 @@ jobs:
     name: Deploy to heroku cito-web
     runs-on: ubuntu-18.04
     needs: sonar_client
+    env:
+      working-directory: frontend
     steps:
       - name: Check out repository
-        working-directory: frontend
         uses: actions/checkout@v2
       - name: Deploy to Heroku
-        working-directory: frontend
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
