@@ -47,6 +47,7 @@ jobs:
   sonar_cito:
     name: Test - SonarCloud Scan Cito
     runs-on: ubuntu-18.04
+    needs: [test_client, test_cito]
     steps:
       - uses: actions/checkout@v1
       - name: Set up JDK 11
@@ -77,6 +78,7 @@ jobs:
   heroku_cito_engine:
     name: Deploy to heroku cito-engine
     runs-on: ubuntu-18.04
+    needs: sonar_client
     steps:
       - name: Check out repository
         working-directory: cito
@@ -92,6 +94,7 @@ jobs:
   heroku_cito_client:
     name: Deploy to heroku cito-client
     runs-on: ubuntu-18.04
+    needs: sonar_client
     steps:
       - name: Check out repository
         working-directory: client
