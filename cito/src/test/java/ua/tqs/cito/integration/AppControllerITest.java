@@ -30,12 +30,12 @@ public class AppControllerITest {
         String response = "{\"products\":[{\"id\":3,\"quantity\":2},{\"id\":5,\"quantity\":3}],\"info\":{\"appid\":1,\"userId\":1,\"deliveryAddress\":\"Rua do corvo\",\"deliverInPerson\":true}}";
 
         RestAssured
-                .given()
-                .contentType("application/json")
-                .body(response).post("http://localhost:8081/clientApi/1/order/register?appid=1")
-                .then()
-                .assertThat()
-                .statusCode(201);
+            .given()
+            .contentType("application/json")
+            .body(response).post("http://localhost:8081/clientApi/1/order/register?appid=1")
+            .then()
+            .assertThat()
+            .statusCode(201);
 
     }
 
@@ -43,33 +43,33 @@ public class AppControllerITest {
     public void whenGetOrders_thenReturnOrders() {
 
         RestAssured
-                .get("http://localhost:8081/clientApi/1/orders?appid=1")
-                .then()
-                .assertThat()
-                .and().statusCode(200)
-                .and().body("size()",greaterThan(0));
+            .get("http://localhost:8081/clientApi/1/orders?appid=1")
+            .then()
+            .assertThat()
+            .and().statusCode(200)
+            .and().body("size()",greaterThan(0));
     }
 
     @Test
     public void whenGetProducts_thenReturnProducts() {
 
         RestAssured
-                .get("http://localhost:8081/clientApi/1/products?appid=1")
-                .then()
-                .assertThat()
-                .and().statusCode(200)
-                .and().body("size()",greaterThan(0));
+            .get("http://localhost:8081/clientApi/1/products?appid=1")
+            .then()
+            .assertThat()
+            .and().statusCode(200)
+            .and().body("size()",greaterThan(0));
     }
 
     @Test
     public void whenGetProductsByQuery_ReturnProducts() {
 
         RestAssured
-                .get("http://localhost:8081/clientApi/1/search?appid=1&query=benuron")
-                .then()
-                .assertThat()
-                .and().statusCode(200)
-                .and().body("size()",greaterThan(0));
+            .get("http://localhost:8081/clientApi/1/search?appid=1&query=benuron")
+            .then()
+            .assertThat()
+            .and().statusCode(200)
+            .and().body("size()",greaterThan(0));
     }
 
 }
