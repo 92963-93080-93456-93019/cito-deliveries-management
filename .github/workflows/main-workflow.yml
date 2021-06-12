@@ -1,14 +1,10 @@
-name: Master Branch
+name: Main Workflow
 
 on:
-  pull_request:
-    types: [closed, review_requested]
+  push:
     branches:
       - "master"
       - "develop"
-
-
-
 
 jobs:
   test_cito:
@@ -66,6 +62,7 @@ jobs:
   sonar_client:
     name: Test - SonarCloud Scan Client
     runs-on: ubuntu-18.04
+    needs: [test_client, test_cito]
     steps:
       - uses: actions/checkout@v1
       - name: Set up JDK 11
@@ -81,7 +78,7 @@ jobs:
   heroku_cito_engine:
     name: Deploy to heroku cito-engine
     runs-on: ubuntu-18.04
-    needs: sonar_client
+    needs: [sonar_client, sonar_cito]
     env:
       working-directory: cito
     steps:
@@ -97,7 +94,7 @@ jobs:
   heroku_cito_client:
     name: Deploy to heroku cito-client
     runs-on: ubuntu-18.04
-    needs: sonar_client
+    needs: [sonar_client, sonar_cito]
     env:
       working-directory: client
     steps:
@@ -113,7 +110,7 @@ jobs:
   heroku_cito_web:
     name: Deploy to heroku cito-web
     runs-on: ubuntu-18.04
-    needs: sonar_client
+    needs: [sonar_client, sonar_cito]
     env:
       working-directory: frontend
     steps:
