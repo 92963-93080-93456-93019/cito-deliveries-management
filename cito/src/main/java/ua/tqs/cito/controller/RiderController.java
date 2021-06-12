@@ -17,22 +17,17 @@ public class RiderController {
     private OrderService orderService;
 
     @Autowired
-    private UserRegisterService riderService;
+    private UserRegisterService userRegisterService;
 
     // Rider updates order state
     @GetMapping(value="{riderId}/order/update",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateOrder(@PathVariable Long riderId, Long appid, Long orderId, String status){
         return orderService.updateOrder(riderId, appid, orderId, status);
     }
-    // Client registers an order
-    @PostMapping(value="{clientId}/order/register",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> registerOrder(@PathVariable Long clientId, Long appid, @RequestBody JsonNode payload) {
-        System.out.println("Cheguei ao controller");
-        return orderService.registerOrder(clientId, appid, payload);
-    }
+
     // Rider registers
     @PostMapping(value="/register",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> registerRider(@RequestBody JsonNode payload){
-        return riderService.register(payload);
+        return userRegisterService.registerRider(payload);
     }
 }

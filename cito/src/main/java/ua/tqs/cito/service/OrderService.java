@@ -47,10 +47,6 @@ public class OrderService {
     }
 
     public ResponseEntity<Object> registerOrder( Long clientId, Long appid, JsonNode payload ){
-        // OLD JSON FIELDS (REMOVE THEM FROM JSON IN FRONTEND)
-
-        //App app1 = checkAppId(Long.parseLong(payload.path("info").path("appid").asText()));
-        // Consumer c = checkConsumer(Long.parseLong(payload.path("info").path("userId").asText()));
 
         App app = appRepository.findByAppid(appid);
         if (app == null)
@@ -128,7 +124,14 @@ public class OrderService {
 
     }
 
-    public ResponseEntity<Object> rate(Long riderId, Integer rating) {
+    public ResponseEntity<Object> consumerRatesRider(Long consumerId, Long riderId, Integer rating, Long appid) {
+
+        if (checkAppId(appid))
+            return new ResponseEntity<>(HttpResponses.INVALID_APP, HttpStatus.FORBIDDEN);
+
+        if (!checkConsumerId(consumerId))
+            return new ResponseEntity<>(HttpResponses.INVALID_CONSUMER, HttpStatus.FORBIDDEN);
+
         if (!checkRiderId(riderId))
             return new ResponseEntity<>(HttpResponses.INVALID_RIDER, HttpStatus.FORBIDDEN);
 
