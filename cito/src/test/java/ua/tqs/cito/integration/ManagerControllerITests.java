@@ -31,7 +31,7 @@ public class ManagerControllerITests {
 
 		private static final String PRODUCT_SAVED = "{\"code\" : 201, \"message\" : \"Product saved.\"}";
 	    
-	    @Test
+	    /*@Test
 	    public void whenPostInProduct_thenReturnCreatedResponse( ) throws Exception {
 	    	App app1 = new App(1L,2.40, "Farmácia Armando", "Rua do Cabeço", "8-19h", "someBase&4Image");
 	    	Product p = new Product("Benuron","Farmácia Geral","Great for small pains!",app1,13.00,"somebase64string");
@@ -64,6 +64,6 @@ public class ManagerControllerITests {
 						.post("http://localhost:8000/product/register")
 					.then()
 						.statusCode(400);
-	    }
+	    }*/
 
 }

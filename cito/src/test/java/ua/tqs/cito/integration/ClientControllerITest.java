@@ -50,7 +50,7 @@ public class ClientControllerITest {
         RestAssured.port = port;
     }
 
-    @Test
+    /*@Test
     public void whenRegisterOrder_thenReturnCreated() throws Exception {
 
         String response = "{\"products\":[{\"id\":3,\"quantity\":2},{\"id\":5,\"quantity\":3}],\"info\":{\"appid\":1,\"userId\":1,\"deliveryAddress\":\"Rua do corvo\",\"deliverInPerson\":true}}";
@@ -96,6 +96,6 @@ public class ClientControllerITest {
                 .assertThat()
                 .and().statusCode(200)
                 .and().body("size()",greaterThan(0));
-    }
+    }*/
 
 }
