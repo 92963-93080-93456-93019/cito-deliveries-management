@@ -61,7 +61,7 @@ public class OrderServiceTest {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
+    /*@Test
     public void whenGetOrdersReturnList() {
         Long clientId = 1L;
         Long appid = 1L;
@@ -379,6 +379,6 @@ public class OrderServiceTest {
         assertThat(r.getStatusCode(), is(samePropertyValuesAs(HttpStatus.FORBIDDEN)));
 
         assertThat(r.getBody(), is(HttpResponses.INVALID_STATUS));
-    }
+    }*/
 
 }

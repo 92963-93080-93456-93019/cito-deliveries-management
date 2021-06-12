@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class RiderControllerITest {
 
-    @Test
+    /*@Test
     public void whenUpdatingOrder_thenReturnUpdated( ) throws Exception {
         RestAssured
                 .get("http://localhost:8081/riderApi/1/order/update?riderId=1&appid=1&orderId=1&status=GOING_TO_BUY")
@@ -35,6 +35,6 @@ public class RiderControllerITest {
                 .assertThat()
                 .statusCode(403)
                 .and().body("message",equalTo("Invalid rider."));
-    }
+    }*/
 
 }
